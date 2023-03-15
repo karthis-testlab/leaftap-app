@@ -5,31 +5,28 @@ import org.testng.annotations.Test;
 
 import hooks.TestNgHooks;
 
-public class TC001_LoginLogOut extends TestNgHooks{	
-	
+public class TC002_LoginForFailure extends TestNgHooks{
+
 	@BeforeTest
 	public void setValues() {
-		testCaseName = "Login and LoginOut";
-		testDescription = "Login testCase and LogOut";
+
+		testCaseName = "Login(Negative)";
+		testDescription = "Login for Failure(Negative testCase)";
 		nodes = "Leads";
 		authors = "Babu";
 		category = "Smoke";
-		dataSheetName = "TC001";
+		dataSheetName = "TC002";
+
 	}
 
 	@Test(dataProvider = "fetchData")
-	public void login(String uName, String pwd) {
+	public void login(String uName, String pwd, String errMsg) {
 		loginPage
 		.enterUserName(uName)
 		.enterPassword(pwd)
-		.clickLogin()
-		.clickLogout();	
-		
-		loginPage
-		.enterPassword(pwd)
-		.clickLogInForFailure();
+		.clickLogInForFailure()
+		.verifyErrorMsg(errMsg);
 	}
 
 
 }
-
